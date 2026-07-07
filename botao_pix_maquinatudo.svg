@@ -1,10 +1,67 @@
-<svg width="260" height="56" viewBox="0 0 260 56" role="img" xmlns="http://www.w3.org/2000/svg">
-  <title>Apoie com um Pix</title>
-  <rect x="1" y="1" width="258" height="54" rx="14" fill="#157F63"/>
-  <!-- coffee cup -->
-  <rect x="19" y="19" width="19" height="15" rx="3.5" fill="#ffffff"/>
-  <path d="M38 22 c5 0 5 8 0 8" stroke="#ffffff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-  <path d="M28.5 29.4 C 24.8 26.6, 25 23.6, 27 23.6 C 28.1 23.6, 28.5 24.5, 28.5 24.5 C 28.5 24.5, 28.9 23.6, 30 23.6 C 32 23.6, 32.2 26.6, 28.5 29.4 Z" fill="#E0894A"/>
-  <!-- label -->
-  <text x="156" y="35" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#ffffff">Apoie com um Pix</text>
-</svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="67.645401mm"
+   height="8.609478mm"
+   viewBox="0 0 67.645401 8.609478"
+   version="1.1"
+   id="svg1"
+   xml:space="preserve"
+   inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
+   sodipodi:docname="botao_pix_maquinatudo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.9847983"
+     inkscape:cx="130.99568"
+     inkscape:cy="19.901267"
+     inkscape:window-width="1296"
+     inkscape:window-height="836"
+     inkscape:window-x="77"
+     inkscape:window-y="47"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" /><defs
+     id="defs1" /><g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-129.64583,-19.854826)"><rect
+       x="129.64583"
+       y="19.854826"
+       width="67.645401"
+       height="8.609478"
+       rx="2.3577819"
+       fill="#157f63"
+       id="rect1"
+       style="fill:#4d4d4d;stroke-width:0.204457" /><g
+       id="g5"
+       transform="translate(0.39219491)"><g
+         id="g4"
+         transform="translate(0,0.27730197)"><path
+           id="rect2"
+           style="fill:#ffffff;stroke:#ff7f2a;stroke-width:0.785;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;paint-order:markers stroke fill"
+           d="m 140.00127,21.472074 c -0.49013,0 -0.8847,0.394563 -0.8847,0.884701 v 3.050976 c 0,0.490138 0.39457,0.884701 0.8847,0.884701 h 3.03341 c 0.49014,0 0.8847,-0.394563 0.8847,-0.884701 v -0.03101 a 0.3705205,0.3705205 0 0 0 5.2e-4,0 c 1.76635,0 1.76635,-3.31246 0,-3.31246 a 0.3705205,0.3705205 0 0 0 -0.0481,0.0062 c -0.11849,-0.348776 -0.44732,-0.598413 -0.83716,-0.598413 z m 3.91811,1.334803 a 0.3705205,0.3705205 0 0 0 5.2e-4,0 c 0.76144,0 0.76144,1.829862 0,1.829862 a 0.3705205,0.3705205 0 0 0 -5.2e-4,0 z" /><path
+           d="m 141.51817,24.956544 c -1.28079,-0.969259 -1.21157,-2.007751 -0.51924,-2.007751 0.38078,0 0.51924,0.311548 0.51924,0.311548 0,0 0.13848,-0.311548 0.51926,-0.311548 0.69233,0 0.76155,1.038492 -0.51926,2.007751 z"
+           fill="#e0894a"
+           id="path3"
+           style="fill:#ff2a7f;stroke-width:0.346164" /></g><text
+         x="168.01045"
+         y="25.568636"
+         text-anchor="middle"
+         font-family="system-ui, '-apple-system', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+         font-size="4.49792px"
+         font-weight="700"
+         fill="#ffffff"
+         id="text3"
+         style="stroke-width:0.264583">Apoie com um Pix</text></g></g></svg>
