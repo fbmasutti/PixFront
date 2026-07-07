@@ -1,0 +1,10 @@
+<svg width="260" height="56" viewBox="0 0 260 56" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Apoie com um Pix</title>
+  <rect x="1" y="1" width="258" height="54" rx="14" fill="#157F63"/>
+  <!-- coffee cup -->
+  <rect x="19" y="19" width="19" height="15" rx="3.5" fill="#ffffff"/>
+  <path d="M38 22 c5 0 5 8 0 8" stroke="#ffffff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  <path d="M28.5 29.4 C 24.8 26.6, 25 23.6, 27 23.6 C 28.1 23.6, 28.5 24.5, 28.5 24.5 C 28.5 24.5, 28.9 23.6, 30 23.6 C 32 23.6, 32.2 26.6, 28.5 29.4 Z" fill="#E0894A"/>
+  <!-- label -->
+  <text x="156" y="35" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#ffffff">Apoie com um Pix</text>
+</svg>
