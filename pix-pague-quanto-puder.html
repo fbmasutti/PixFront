@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apoie — Pix</title>
+<style>
+  /* ============================================================
+     CONFIGURAÇÃO — edite só esta parte para colocar seus dados
+     ============================================================ */
+  /* (valores reais ficam no <script> lá embaixo, procure CONFIG) */
+
+  :root{
+    --bg:#0b0b0b;
+    --panel:#141414;
+    --line:#2b2b2b;
+    --ink:#f5f5f4;
+    --ink-dim:#8f8f8c;
+    --accent:#ffffff;
+    --accent-ink:#0b0b0b;
+    --danger:#c9c9c6;
+    --radius:14px;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    padding:24px;
+    display:flex;
+    justify-content:center;
+    background:transparent;
+    font-family:'Space Grotesk', 'Inter', system-ui, sans-serif;
+  }
+
+  .board{
+    width:100%;
+    max-width:380px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px 20px 20px;
+    color:var(--ink);
+    position:relative;
+    overflow:hidden;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.03) inset, 0 12px 30px rgba(0,0,0,0.45);
+  }
+
+  .eyebrow{
+    font-family:'JetBrains Mono', ui-monospace, monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:6px;
+  }
+  .eyebrow .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--ink);
+  }
+
+  h1{
+    font-size:19px;
+    margin:0 0 4px;
+    font-weight:600;
+    letter-spacing:.01em;
+  }
+  .sub{
+    font-size:13px;
+    color:var(--ink-dim);
+    margin:0 0 18px;
+    line-height:1.4;
+  }
+
+  .amounts{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+    margin-bottom:10px;
+  }
+  .chip{
+    font-family:'JetBrains Mono', ui-monospace, monospace;
+    font-size:13px;
+    padding:10px 4px;
+    border-radius:9px;
+    border:1px solid var(--line);
+    background:var(--bg);
+    color:var(--ink);
+    cursor:pointer;
+    transition:border-color .15s, transform .1s, background .15s;
+  }
+  .chip:hover{border-color:var(--ink-dim);}
+  .chip:active{transform:scale(.96);}
+  .chip.active{
+    border-color:var(--ink);
+    background:var(--ink);
+    color:var(--accent-ink);
+  }
+  .chip:focus-visible, button:focus-visible, input:focus-visible, label.free:focus-within{
+    outline:2px solid var(--ink);
+    outline-offset:2px;
+  }
+
+  .custom-row{
+    display:flex;
+    gap:8px;
+    margin-bottom:10px;
+  }
+  .custom-row .prefix{
+    display:flex;align-items:center;
+    padding:0 10px;
+    border-radius:9px;
+    border:1px solid var(--line);
+    background:var(--bg);
+    font-family:'JetBrains Mono', ui-monospace, monospace;
+    color:var(--ink-dim);
+    font-size:13px;
+  }
+  .custom-row input[type="number"]{
+    flex:1;
+    min-width:0;
+    background:var(--bg);
+    border:1px solid var(--line);
+    border-radius:9px;
+    color:var(--ink);
+    padding:0 10px;
+    font-family:'JetBrains Mono', ui-monospace, monospace;
+    font-size:14px;
+  }
+
+  label.free{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12.5px;
+    color:var(--ink-dim);
+    margin-bottom:16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  label.free input{accent-color:var(--ink);}
+
+  .go-btn{
+    width:100%;
+    padding:14px 12px;
+    border-radius:999px;
+    border:1px solid var(--accent);
+    background:var(--accent);
+    color:var(--accent-ink);
+    font-weight:700;
+    font-size:14.5px;
+    letter-spacing:.02em;
+    cursor:pointer;
+    box-shadow: 0 6px 16px rgba(0,0,0,.3);
+    transition:transform .1s;
+  }
+  .go-btn:active{transform:translateY(1px);}
+  .go-btn:disabled{opacity:.5; cursor:not-allowed;}
+
+  .error{
+    color:var(--danger);
+    font-size:12.5px;
+    margin-top:8px;
+    min-height:16px;
+  }
+
+  .result{
+    margin-top:18px;
+    padding-top:16px;
+    border-top:1px dashed var(--line);
+    display:none;
+    text-align:center;
+  }
+  .result.show{display:block;}
+  .result .amount-label{
+    font-family:'JetBrains Mono', ui-monospace, monospace;
+    font-size:12px;
+    color:var(--ink-dim);
+    margin-bottom:10px;
+  }
+  .result .amount-label b{color:var(--ink);}
+  #qrcode{
+    display:inline-block;
+    padding:10px;
+    background:#ffffff;
+    border-radius:10px;
+    line-height:0;
+  }
+  .code-box{
+    margin-top:12px;
+    display:flex;
+    gap:6px;
+  }
+  .code-box textarea{
+    flex:1;
+    resize:none;
+    height:52px;
+    font-family:'JetBrains Mono', ui-monospace, monospace;
+    font-size:10.5px;
+    background:var(--bg);
+    color:var(--ink-dim);
+    border:1px solid var(--line);
+    border-radius:9px;
+    padding:8px;
+  }
+  .copy-btn{
+    flex-shrink:0;
+    width:52px;
+    border-radius:9px;
+    border:1px solid var(--line);
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'JetBrains Mono', ui-monospace, monospace;
+    font-size:11px;
+    cursor:pointer;
+  }
+  .copy-btn.copied{border-color:var(--ink); color:var(--ink);}
+
+  .foot{
+    margin-top:14px;
+    font-size:10.5px;
+    color:var(--ink-dim);
+    text-align:center;
+    line-height:1.5;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="board">
+  <div class="eyebrow"><span class="dot"></span>PIX · APOIO DIRETO</div>
+  <h1>Pague quanto puder</h1>
+  <p class="sub">Escolha um valor (ou digite o seu) e gere o código Pix na hora. Cai direto na chave abaixo, sem intermediário.</p>
+
+  <div class="amounts" id="amountChips"></div>
+
+  <div class="custom-row">
+    <span class="prefix">R$</span>
+    <input type="number" id="customAmount" min="1" step="1" placeholder="outro valor">
+  </div>
+
+  <label class="free">
+    <input type="checkbox" id="openAmount">
+    Deixar em aberto — quem paga escolhe o valor no app do banco
+  </label>
+
+  <button class="go-btn" id="generateBtn">Gerar código Pix</button>
+  <div class="error" id="errorMsg"></div>
+
+  <div class="result" id="result">
+    <div class="amount-label" id="amountLabel"></div>
+    <div id="qrcode"></div>
+    <div class="code-box">
+      <textarea id="pixCode" readonly></textarea>
+      <button class="copy-btn" id="copyBtn">copiar</button>
+    </div>
+  </div>
+
+  <div class="foot">Pix Copia e Cola gerado localmente, no seu navegador — nenhum dado passa por servidor.</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+/* ================================================================
+   CONFIG — edite estes valores com os seus dados reais antes de publicar
+   ================================================================ */
+const CONFIG = {
+  pixKey: "38168776000198",           // chave Pix = CNPJ, só dígitos (sem pontos, barra ou traço)
+  merchantName: "FABRICIO BERALDO MASUTTI", // como aparece no banco de quem paga (max 25 caracteres, sem acento)
+  merchantCity: "SAO PAULO",           // cidade (max 15 caracteres, sem acento) — ajuste se necessário
+  presets: [5, 10, 20, 50],            // valores sugeridos em R$
+  txid: "***"                          // identificador da transação; "***" = sem referência (padrão aceito)
+};
+/* ================================================================ */
+
+// --- monta os botões de valor a partir do CONFIG ---
+const chipsWrap = document.getElementById('amountChips');
+let selectedAmount = null;
+
+CONFIG.presets.forEach(v => {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'chip';
+  btn.textContent = `R$ ${v}`;
+  btn.addEventListener('click', () => {
+    selectedAmount = v;
+    document.getElementById('customAmount').value = '';
+    document.getElementById('openAmount').checked = false;
+    [...chipsWrap.children].forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+  });
+  chipsWrap.appendChild(btn);
+});
+
+document.getElementById('customAmount').addEventListener('input', () => {
+  selectedAmount = null;
+  [...chipsWrap.children].forEach(c => c.classList.remove('active'));
+});
+
+document.getElementById('openAmount').addEventListener('change', (e) => {
+  if (e.target.checked) {
+    selectedAmount = null;
+    document.getElementById('customAmount').value = '';
+    [...chipsWrap.children].forEach(c => c.classList.remove('active'));
+  }
+});
+
+// --- utilidades para montar o BR Code (Pix Copia e Cola) ---
+
+function normalize(str, maxLen) {
+  const noAccents = str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const cleaned = noAccents.replace(/[^a-zA-Z0-9 ]/g, '').toUpperCase().trim();
+  return cleaned.substring(0, maxLen) || '-';
+}
+
+function tlv(id, value) {
+  const len = String(value.length).padStart(2, '0');
+  return `${id}${len}${value}`;
+}
+
+function crc16(payload) {
+  let crc = 0xFFFF;
+  for (let i = 0; i < payload.length; i++) {
+    crc ^= payload.charCodeAt(i) << 8;
+    for (let b = 0; b < 8; b++) {
+      crc = (crc & 0x8000) ? ((crc << 1) ^ 0x1021) : (crc << 1);
+      crc &= 0xFFFF;
+    }
+  }
+  return crc.toString(16).toUpperCase().padStart(4, '0');
+}
+
+function buildPixPayload({ pixKey, merchantName, merchantCity, amount, txid }) {
+  const name = normalize(merchantName, 25);
+  const city = normalize(merchantCity, 15);
+  const id = (txid || '***').replace(/[^a-zA-Z0-9]/g, '').substring(0, 25) || '***';
+
+  const merchantAccountInfo =
+    tlv('00', 'br.gov.bcb.pix') +
+    tlv('01', pixKey.trim());
+
+  let payload =
+    tlv('00', '01') +                                  // Payload Format Indicator
+    tlv('01', amount ? '12' : '11') +                  // Point of Initiation Method
+    tlv('26', merchantAccountInfo) +                   // Merchant Account Info (Pix)
+    tlv('52', '0000') +                                // Merchant Category Code
+    tlv('53', '986');                                  // Currency: BRL
+
+  if (amount) {
+    payload += tlv('54', amount.toFixed(2));           // Transaction Amount
+  }
+
+  payload +=
+    tlv('58', 'BR') +                                  // Country
+    tlv('59', name) +                                  // Merchant Name
+    tlv('60', city) +                                  // Merchant City
+    tlv('62', tlv('05', id));                          // Additional Data (txid)
+
+  const withCrcId = payload + '6304';
+  return withCrcId + crc16(withCrcId);
+}
+
+// --- ação do botão gerar ---
+document.getElementById('generateBtn').addEventListener('click', () => {
+  const errorEl = document.getElementById('errorMsg');
+  errorEl.textContent = '';
+
+  const openAmount = document.getElementById('openAmount').checked;
+  const customVal = parseFloat(document.getElementById('customAmount').value);
+  let amount = null;
+
+  if (!openAmount) {
+    amount = selectedAmount || (customVal > 0 ? customVal : null);
+    if (!amount) {
+      errorEl.textContent = 'Escolha um valor, digite um valor ou marque "deixar em aberto".';
+      return;
+    }
+  }
+
+  if (!CONFIG.pixKey || CONFIG.pixKey === 'sua-chave-pix-aqui') {
+    errorEl.textContent = 'Configure sua chave Pix real no CONFIG antes de usar este widget.';
+    return;
+  }
+
+  const code = buildPixPayload({
+    pixKey: CONFIG.pixKey,
+    merchantName: CONFIG.merchantName,
+    merchantCity: CONFIG.merchantCity,
+    amount,
+    txid: CONFIG.txid
+  });
+
+  document.getElementById('amountLabel').innerHTML = amount
+    ? `Valor: <b>R$ ${amount.toFixed(2).replace('.', ',')}</b>`
+    : `Valor: <b>em aberto</b> — digite no app do banco`;
+
+  const qrWrap = document.getElementById('qrcode');
+  qrWrap.innerHTML = '';
+  new QRCode(qrWrap, {
+    text: code,
+    width: 200,
+    height: 200,
+    colorDark: "#0b0b0b",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.M
+  });
+
+  document.getElementById('pixCode').value = code;
+  document.getElementById('result').classList.add('show');
+});
+
+document.getElementById('copyBtn').addEventListener('click', async (e) => {
+  const codeEl = document.getElementById('pixCode');
+  if (!codeEl.value) return;
+  try {
+    await navigator.clipboard.writeText(codeEl.value);
+  } catch {
+    codeEl.select();
+    document.execCommand('copy');
+  }
+  e.target.textContent = 'copiado!';
+  e.target.classList.add('copied');
+  setTimeout(() => {
+    e.target.textContent = 'copiar';
+    e.target.classList.remove('copied');
+  }, 1800);
+});
+</script>
+</body>
+</html>
