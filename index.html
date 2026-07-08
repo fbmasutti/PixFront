@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apoie — Pix</title>
+<title>Coletivo Máquina Tudo — Apoie via Pix</title>
 <style>
   /* ============================================================
      CONFIGURAÇÃO — edite só esta parte para colocar seus dados
@@ -25,11 +25,82 @@
   *{box-sizing:border-box;}
   body{
     margin:0;
-    padding:24px;
+    padding:40px 20px 60px;
     display:flex;
     justify-content:center;
-    background:transparent;
+    background:var(--bg);
     font-family:'Space Grotesk', 'Inter', system-ui, sans-serif;
+  }
+
+  .page{
+    width:100%;
+    max-width:380px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .site-header{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    margin-bottom:28px;
+  }
+  .site-header .logo{
+    width:64px;
+    height:64px;
+    object-fit:contain;
+    margin-bottom:14px;
+  }
+  .site-header h2{
+    font-size:16px;
+    font-weight:600;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    margin:0 0 10px;
+    color:var(--ink);
+  }
+  .site-header .links{
+    display:flex;
+    gap:14px;
+    font-family:'JetBrains Mono', ui-monospace, monospace;
+    font-size:12px;
+  }
+  .site-header .links a{
+    color:var(--ink-dim);
+    text-decoration:none;
+    border-bottom:1px solid var(--line);
+    padding-bottom:1px;
+    transition:color .15s, border-color .15s;
+  }
+  .site-header .links a:hover{
+    color:var(--ink);
+    border-color:var(--ink);
+  }
+
+  .thanks{
+    max-width:380px;
+    margin-top:22px;
+    padding:16px 18px;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    text-align:center;
+  }
+  .thanks p{
+    margin:0;
+    font-size:12.5px;
+    color:var(--ink-dim);
+    line-height:1.55;
+  }
+  .thanks p b{color:var(--ink); font-weight:600;}
+
+  .site-footer{
+    margin-top:26px;
+    font-size:10.5px;
+    color:var(--ink-dim);
+    text-align:center;
+    opacity:.6;
   }
 
   .board{
@@ -233,7 +304,18 @@
 </head>
 <body>
 
-<div class="board">
+<div class="page">
+
+  <header class="site-header">
+    <img src="Logobranco.png" alt="Coletivo Máquina Tudo" class="logo">
+    <h2>Coletivo Máquina Tudo</h2>
+    <div class="links">
+      <a href="https://www.maquinatudo.com.br" target="_blank" rel="noopener">maquinatudo.com.br</a>
+      <a href="https://instagram.com/maquinatudo" target="_blank" rel="noopener">@maquinatudo</a>
+    </div>
+  </header>
+
+  <div class="board">
   <div class="eyebrow"><span class="dot"></span>PIX · APOIO DIRETO</div>
   <h1>Pague quanto puder</h1>
   <p class="sub">Escolha um valor (ou digite o seu) e gere o código Pix na hora. Cai direto na chave abaixo, sem intermediário.</p>
@@ -263,7 +345,17 @@
   </div>
 
   <div class="foot">Pix Copia e Cola gerado localmente, no seu navegador — nenhum dado passa por servidor.</div>
+  </div>
+
+  <div class="thanks">
+    <p><b>Obrigado por apoiar o Coletivo Máquina Tudo!</b><br>
+    Cada contribuição ajuda a gente a seguir criando, produzindo e colocando a mão na massa. Acesse nossas redes e fique por dentro das novidades!</p>
+  </div>
+
+  <footer class="site-footer">Coletivo Máquina Tudo · desde 2015</footer>
+
 </div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
